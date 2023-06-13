@@ -18,8 +18,8 @@ app.use(cors())
 app.use(express.json())
 
 const server = http.createServer(app)
-
-server.listen(1337, function () {
+const WS_PORT = process.env.PORT || 5000;
+server.listen(WS_PORT, function () {
     console.log('Server running')
 })
 
@@ -32,7 +32,7 @@ wss.on('connection', function (ws) {
 const port = 5000
 
 app.get('/', (req: Request, res: Response)=> {
-    res.sendFile(path.join(__dirname, './front/index.html'))
+    res.send('<h1>SyncRecording API</h1>')
 });
 
 app.post('/uploadFile', upload.single('file'),  Upload.uploadFile)
