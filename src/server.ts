@@ -53,3 +53,5 @@ app.post('/setTime', (req, res) => {
 app.listen(port, ()=> {
     console.log(`[Server]: I am running at https://localhost:${port}`)
 });
+
+export default app
