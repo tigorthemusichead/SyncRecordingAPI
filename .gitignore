@@ -2,3 +2,5 @@
 /upload
 /build
 /.idea
+
+.env.local

@@ -18,7 +18,7 @@ app.use(cors())
 app.use(express.json())
 
 const server = http.createServer(app)
-const WS_PORT = process.env.PORT || 5000;
+const WS_PORT = process.env.PORT || 5001;
 server.listen(WS_PORT, function () {
     console.log('Server running')
 })
