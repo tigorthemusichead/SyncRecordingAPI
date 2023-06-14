@@ -2,16 +2,24 @@ import {IUpload} from "./types"
 import {google} from "googleapis"
 import fs from "fs";
 import {auth} from "../google-api"
+import FFmpeg from "../transcode";
 
 const Upload: IUpload = {
     uploadFile: async (req, res) => {
         console.log(req.file)
-        if (req.file != null) {
-            await Upload.sendToDrive(req.file)
+        let file = req.file
+        if (file != null) {
+            const transcoded = await FFmpeg.toWAV(file.path)
+            if(transcoded.success) {
+                file.path = transcoded.file ?? file.path
+                file.originalname += '.wav'
+                file.mimetype = 'audio/wav'
+            }
+            await Upload.sendToDrive(file)
         }
         res.send({
             success: true,
-            file: req.file
+            file: file
         })
     },
     sendToDrive: async (uploadedFile) => {
